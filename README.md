@@ -96,10 +96,21 @@ Keep your server terminal running, then open one or more **new** terminal tabs o
 
 #### Option A: Built-in Terminal Client (Recommended)
 ```bash
-elixir client.exs
-# or connect to a remote host:
-elixir client.exs 127.0.0.1 4040
+elixir client.exs                  # connects to 127.0.0.1:4040
+elixir client.exs 192.168.1.20     # custom host, default port
+elixir client.exs chat.local 5000  # custom host and port
+elixir client.exs --help           # show usage
 ```
+
+| Argument | Default | Description |
+| :--- | :--- | :--- |
+| `host` | `127.0.0.1` | Server hostname or IP address |
+| `port` | `4040` | Server TCP port (1–65535) |
+
+Client behavior:
+- Gives up after **5 seconds** if the server can't be reached, with a readable reason (for example `connection refused (is the server running?)` or `unknown host`).
+- To disconnect, type `/quit` or press **Ctrl+D** (on Windows, **Ctrl+Z** then **Enter**).
+- **Exit codes:** `0` for a normal disconnect, `1` for a connection or network error, `2` for invalid arguments. This makes the client usable in scripts.
 
 You will see:
 ```text
@@ -191,7 +202,7 @@ Finished in 0.3 seconds
 ├── test/
 │   └── chat_server_test.exs     # Unit & TCP integration tests
 ├── bot_demo.exs                 # 3-bot automated simulation
-├── client.exs                   # Interactive terminal chat client
+├── client.exs                   # Interactive terminal chat client (elixir client.exs --help)
 ├── mix.exs                      # Project configuration
 └── README.md                    # Documentation
 ```
